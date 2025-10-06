@@ -26,11 +26,21 @@ public class MyString {
         System.out.print("\nEnter your choice: ");
         int choice = sc.nextInt();
         sc.nextLine(); 
-		
+
 		
         if (choice == 1) str = obj.appendString(sc, str);
         else if (choice == 2) obj.countWords(str);
-        else if (choice == 3) str = obj.replaceString(sc, str);
+
+     
+        
+        else if (choice == 3) {
+            
+           System.out.println("Enter character you want to replace:");
+        char a = sc.next().charAt(0);
+        System.out.println("Enter new character:");
+        char b = sc.next().charAt(0);
+		
+             obj.replace(str,a,b);}
         else if (choice == 4) obj.checkPalindrome(str);
         else if (choice == 5) str = obj.spliceString(sc, str);
         else if (choice == 6) obj.splitString(str);
@@ -60,15 +70,20 @@ public class MyString {
     }
 
     // 3. Replace
-    String replaceString(Scanner sc, String str) {
-        System.out.print("Enter text to replace: ");
-        String oldTxt = sc.nextLine();
-        System.out.print("Enter new text: ");
-        String newTxt = sc.nextLine();
-        str = str.replace(oldTxt, newTxt);
-        System.out.println("After replace: " + str);
-        return str;
+   void replace(String str, char oldChar, char newChar) {
+    String result = "";
+
+    for (int i = 0; i < str.length(); i++) {
+        char c = str.charAt(i);
+        if (c == oldChar) {
+            result += newChar;   // replace manually
+        } else {
+            result += c;         // keep original
+        }
     }
+
+    System.out.println("String after Replace: " + result);
+}
 
     // 4. Palindrome
     void checkPalindrome(String str) {
