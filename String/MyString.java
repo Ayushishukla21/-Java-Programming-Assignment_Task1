@@ -19,8 +19,13 @@ public class MyString {
 
     // 2. Count Words
     int countWords(String str) {
-        String s= str.trim();
-        return s.length();
+        int count=0;
+        for(char c:str.toCharArray()){
+            if(c==' '){
+                count++;
+            }
+        }
+        return count+1;
     }
 
     // 3. Replace
@@ -87,12 +92,26 @@ public class MyString {
     }
 
     // 8. Sort
-    String sortString(String str) {
-        char[] arr = str.toCharArray();
-        Arrays.sort(arr);
-        str = new String(arr);
-        return str;
+String sortString(String str) {
+    char[] arr = str.toCharArray();
+    int n = arr.length;
+
+    // Bubble sort
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // swap arr[j] and arr[j+1]
+                char temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
     }
+    // Convert sorted char array back to string
+    str = new String(arr);
+    return str;
+}
+
 
     // 9. Shift
     String shiftString(String str) {
@@ -103,9 +122,9 @@ public class MyString {
 
     // 10. Reverse
     String reverseString(String str) {
-        String rev = "";
+        String reverse = "";
         for (int i = str.length() - 1; i >= 0; i--)
-			rev += str.charAt(i);
-       return rev;
+			reverse += str.charAt(i);
+       return reverse;
     }
 }
