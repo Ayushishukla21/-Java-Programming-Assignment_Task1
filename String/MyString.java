@@ -93,25 +93,19 @@ public class MyString {
 
     // 8. Sort
 String sortString(String str) {
-    char[] arr = str.toCharArray();
-    int n = arr.length;
-
-    // Bubble sort
+    int n = str.length();
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                // swap arr[j] and arr[j+1]
-                char temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+            char c1 = str.charAt(j);
+            char c2 = str.charAt(j + 1);
+            if (c1 > c2) {
+                // Swap manually using substring
+                str = str.substring(0, j) + c2 + c1 + str.substring(j + 2);
             }
         }
     }
-    // Convert sorted char array back to string
-    str = new String(arr);
     return str;
 }
-
 
     // 9. Shift
     String shiftString(String str) {
