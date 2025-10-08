@@ -81,8 +81,7 @@ switch (choice) {
 
             case 9:
                 str = obj.shiftString(str);
-                System.out.println("After Shifting : 
-                " + str);
+                System.out.println("After Shifting : " + str);
                 break;
 
             case 10:

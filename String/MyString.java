@@ -1,6 +1,6 @@
 /**
  * @Filename-Main.java
- * @Description- Definition of all String Operation
+ * @Description- Definition for all String Operation
  * @Author-Ayushi Shukla
  * 
  */
