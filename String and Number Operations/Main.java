@@ -1,19 +1,19 @@
 /**
  * @Filename-Main.java
- * @Description- Menu driven program for String and Number operations
- * @Author- Ayushi Shukla
+ * @Description-For taking user input and calling string functions
+ * @Author-Ayushi Shukla
  */
-
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        MyString sObj = new MyString();
-        MyNumber nObj = new MyNumber();
+        Scanner scanner = new Scanner(System.in);
+        MyString stringOperations = new MyString();
+        MyNumber numberOperations = new MyNumber();
 
-        int choice;
-        do {
+        boolean exit = false;
+
+        while (!exit) {
             System.out.println("\n==== MENU ====");
             System.out.println("String Operations:");
             System.out.println("1. Count Unique Palindromes");
@@ -22,78 +22,99 @@ public class Main {
             System.out.println("4. Expand Encoded String");
             System.out.println("5. Compress String");
             System.out.println("6. Longest Unique Substring");
-
             System.out.println("\nNumber Operations:");
             System.out.println("7. Fibonacci");
             System.out.println("8. Binary to Decimal");
             System.out.println("9. Prime Check");
             System.out.println("10. Number to Words");
             System.out.println("0. Exit");
-
             System.out.print("\nEnter your choice: ");
-            choice = sc.nextInt();
-            sc.nextLine();
+
+            while (!scanner.hasNextInt()) {
+                System.out.print("Invalid input. Enter a number: ");
+                scanner.next();
+            }
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
             switch (choice) {
-                // STRING
                 case 1 -> {
                     System.out.print("Enter a string: ");
-                    String s = sc.nextLine();
-                    System.out.println("Count: " + sObj.countUniquePalindromes(s));
+                    String inputString = scanner.nextLine();
+                    System.out.println("Unique palindromes count: " + stringOperations.countUniquePalindromes(inputString));
                 }
                 case 2 -> {
                     System.out.print("Enter snake_case string: ");
-                    String s = sc.nextLine();
-                    System.out.println("camelCase: " + sObj.snakeToCamel(s));
+                    String inputString = scanner.nextLine();
+                    System.out.println("camelCase: " + stringOperations.snakeToCamel(inputString));
                 }
                 case 3 -> {
                     System.out.print("Enter a string: ");
-                    String s = sc.nextLine();
-                    System.out.println("Consonants: " + sObj.countConsonants(s));
+                    String inputString = scanner.nextLine();
+                    System.out.println("Consonant count: " + stringOperations.countConsonants(inputString));
                 }
                 case 4 -> {
-                    System.out.print("Enter encoded string (a1b4c2): ");
-                    String s = sc.nextLine();
-                    System.out.println("Expanded: " + sObj.expand(s));
+                    System.out.print("Enter encoded string (e.g., a1b4c2): ");
+                    String inputString = scanner.nextLine();
+                    System.out.println("Expanded: " + stringOperations.expand(inputString));
                 }
                 case 5 -> {
-                    System.out.print("Enter string: ");
-                    String s = sc.nextLine();
-                    System.out.println("Compressed: " + sObj.compress(s));
+                    System.out.print("Enter a string: ");
+                    String inputString = scanner.nextLine();
+                    System.out.println("Compressed: " + stringOperations.compress(inputString));
                 }
                 case 6 -> {
-                    System.out.print("Enter string: ");
-                    String s = sc.nextLine();
-                    System.out.println("Longest substring length: " + sObj.longestUniqueSubstring(s));
+                    System.out.print("Enter a string: ");
+                    String inputString = scanner.nextLine();
+                    System.out.println("Length of longest unique substring: " + stringOperations.longestUniqueSubstring(inputString));
                 }
-
-                // NUMBER
                 case 7 -> {
-                    System.out.print("Enter n: ");
-                    int n = sc.nextInt();
-                    System.out.println("Fibonacci: " + nObj.fibonacci(n));
+                    System.out.print("Enter the number of Fibonacci terms: ");
+                    int number = scanner.nextInt();
+                    if (number <= 0) {
+                        System.out.println("Please enter a positive number.");
+                    } else {
+                        System.out.print("Fibonacci Series: ");
+                        for (int index = 0; index < number; index++) {
+                            System.out.print(numberOperations.fibonacci(index) + " ");
+                        }
+                        System.out.println();
+                    }
                 }
                 case 8 -> {
-                    System.out.print("Enter binary: ");
-                    String bin = sc.nextLine();
-                    System.out.println("Decimal: " + nObj.binaryToDecimal(bin));
+                    System.out.print("Enter binary string: ");
+                    String binaryString = scanner.nextLine();
+                    try {
+                        System.out.println("Decimal: " + numberOperations.binaryToDecimal(binaryString));
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
                 }
                 case 9 -> {
                     System.out.print("Enter number: ");
-                    int num = sc.nextInt();
-                    System.out.println(nObj.isPrime(num) ? "Prime" : "Not Prime");
+                    int number = scanner.nextInt();
+                    System.out.println(numberOperations.isPrime(number) ? "Prime" : "Not Prime");
                 }
                 case 10 -> {
                     System.out.print("Enter number: ");
-                    int num = sc.nextInt();
-                    System.out.println("In Words: " + nObj.numberToWords(num));
+                    int number = scanner.nextInt();
+                    System.out.println("In Words: " + numberOperations.numberToWords(number));
                 }
-                case 0 -> System.out.println("Exiting...");
+                case 0 -> {
+                    System.out.print("Are you sure you want to exit? (y/n): ");
+                    String confirm = scanner.nextLine().toLowerCase();
+                    if (confirm.equals("y") || confirm.equals("yes")) {
+                        exit = true;
+                        System.out.println("Exiting...");
+                    } else {
+                        System.out.println("Returning to menu...");
+                    }
+                }
                 default -> System.out.println("Invalid choice!");
             }
+        }
 
-        } while (choice != 0);
-
-        sc.close();
+        scanner.close();
     }
 }

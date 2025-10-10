@@ -1,78 +1,87 @@
-/**
- * @Filename-MyNumber.java
- * @Description- Definition for all Number Operations (without inbuilt functions)
- * @Author- Ayushi Shukla
- */
-
+/* *
+* @Filename-MyNumber.java 
+ * @Description- Definition for all Number Operations (without inbuilt functions) 
+ * @Author- Ayushi Shukla 
+ * */
 public class MyNumber {
 
-    // 1. Nth Fibonacci number
-    int fibonacci(int n) {
-        if (n <= 1) return n;
-        int a = 0, b = 1, c = 0;
-        for (int i = 2; i <= n; i++) {
-            c = a + b;
-            a = b;
-            b = c;
+    // 1. Nth Fibonacci number (Iterative, optimized)
+    int fibonacci(int position) {
+        if (position < 0) return -1;
+        if (position <= 1) return position;
+
+        int first = 0, second = 1, sum = 0;
+        for (int index = 2; index <= position; index++) {
+            sum = first + second;
+            first = second;
+            second = sum;
         }
-        return b;
+        return second;
     }
 
-    // 2. Binary to Decimal conversion
-    int binaryToDecimal(String bin) {
-        int result = 0;
-        for (int i = 0; i < bin.length(); i++) {
-            char c = bin.charAt(i);
-            if (c == '1')
-                result = result * 2 + 1;
-            else
-                result = result * 2;
+    // 2. Binary to Decimal
+    int binaryToDecimal(String binaryString) {
+        if (binaryString == null || binaryString.isEmpty()) {
+            throw new IllegalArgumentException("Binary string cannot be null or empty.");
         }
-        return result;
+
+        int decimal = 0;
+        for (int index = 0; index < binaryString.length(); index++) {
+            char currentChar = binaryString.charAt(index);
+            if (currentChar != '0' && currentChar != '1') {
+                throw new IllegalArgumentException("Invalid binary digit: " + currentChar);
+            }
+            decimal = decimal * 2 + (currentChar - '0');
+        }
+        return decimal;
     }
 
     // 3. Prime check
-    boolean isPrime(int num) {
-        if (num <= 1) return false;
-        for (int i = 2; i * i <= num; i++) {
-            if (num % i == 0)
-                return false;
+    boolean isPrime(int number) {
+        if (number <= 1) return false;
+        if (number == 2) return true;
+        if (number % 2 == 0) return false;
+
+        for (int divisor = 3; divisor * divisor <= number; divisor += 2) {
+            if (number % divisor == 0) return false;
         }
         return true;
     }
 
     // 4. Number to Words (0–999999999)
-    String numberToWords(int n) {
-        if (n == 0) return "zero";
-        return convert(n);
+    String numberToWords(int number) {
+        if (number == 0) return "zero";
+        return convertToWords(number).trim();
     }
 
-    private String convert(int n) {
-        String[] oneToNineteen = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
-                                  "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-                                  "sixteen", "seventeen", "eighteen", "nineteen"};
+    private String convertToWords(int number) {
+        String[] units = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+                          "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+                          "sixteen", "seventeen", "eighteen", "nineteen"};
         String[] tens = {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
-        String result = "";
 
-        if (n >= 1000000) {
-            result += convert(n / 1000000) + " million ";
-            n %= 1000000;
+        StringBuilder wordResult = new StringBuilder();
+
+        if (number >= 1000000) {
+            wordResult.append(convertToWords(number / 1000000)).append(" million ");
+            number %= 1000000;
         }
-        if (n >= 1000) {
-            result += convert(n / 1000) + " thousand ";
-            n %= 1000;
+        if (number >= 1000) {
+            wordResult.append(convertToWords(number / 1000)).append(" thousand ");
+            number %= 1000;
         }
-        if (n >= 100) {
-            result += oneToNineteen[n / 100] + " hundred ";
-            n %= 100;
+        if (number >= 100) {
+            wordResult.append(units[number / 100]).append(" hundred ");
+            number %= 100;
         }
-        if (n >= 20) {
-            result += tens[n / 10] + " ";
-            n %= 10;
+        if (number >= 20) {
+            wordResult.append(tens[number / 10]).append(" ");
+            number %= 10;
         }
-        if (n > 0) {
-            result += oneToNineteen[n];
+        if (number > 0) {
+            wordResult.append(units[number]).append(" ");
         }
-        return result.trim();
+
+        return wordResult.toString();
     }
 }
