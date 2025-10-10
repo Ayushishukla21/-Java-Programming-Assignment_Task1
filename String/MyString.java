@@ -8,8 +8,9 @@
 import java.util.*;
 
 public class MyString {
-
-    // 1. Append String appendString(Scanner sc, String str) {
+      Scanner sc=new Scanner(System.in);
+    // 1. Append
+    String appendString(Scanner sc, String str) {
         System.out.print("Enter text to append: ");
         String add = sc.nextLine();
         str += add;

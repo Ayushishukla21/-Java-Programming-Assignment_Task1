@@ -46,9 +46,9 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.print("Enter old character: ");
+                    System.out.println("Enter old character: ");
                     char oldCh = sc.next().charAt(0);
-                    System.out.print("Enter new character: ");
+                    System.out.println("Enter new character: ");
                     char newCh = sc.next().charAt(0);
                     sc.nextLine(); // consume newline
                     str = obj.replace(str, oldCh, newCh);
