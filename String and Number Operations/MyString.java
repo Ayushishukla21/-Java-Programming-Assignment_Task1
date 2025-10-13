@@ -9,33 +9,31 @@ import java.util.*;
 public class MyString {
 
     // 1. Count unique palindromes of length >= 3
-    int countUniquePalindromes(String inputString) {
-        if (inputString == null || inputString.length() < 3)
+public int countUniquePalindromes(String inputString) {
+        if (inputString == null || !inputString.matches("[a-zA-Z]+")) {
+            System.out.println("Invalid input! Please enter a valid alphabetic string.");
             return 0;
+        }
 
-        Set<String> uniquePalindromes = new HashSet<>();
-        int inputLength = inputString.length();
-
-        for (int start = 0; start < inputLength; start++) {
-            for (int end = start + 2; end < inputLength; end++) {
-                if (isPalindrome(inputString, start, end)) {
-                    uniquePalindromes.add(inputString.substring(start, end + 1));
+        int palindromeCount = 0;
+        for (int startIndex = 0; startIndex < inputString.length(); startIndex++) {
+            for (int endIndex = startIndex + 2; endIndex < inputString.length(); endIndex++) {
+                if (isPalindrome(inputString, startIndex, endIndex)) {
+                    palindromeCount++;
                 }
             }
         }
-        return uniquePalindromes.size();
+        return palindromeCount;
     }
 
-    private boolean isPalindrome(String inputString, int left, int right) {
-        while (left < right) {
-            if (inputString.charAt(left) != inputString.charAt(right))
-                return false;
-            left++;
-            right--;
+    private boolean isPalindrome(String text, int startIndex, int endIndex) {
+        while (startIndex < endIndex) {
+            if (text.charAt(startIndex) != text.charAt(endIndex)) return false;
+            startIndex++;
+            endIndex--;
         }
         return true;
     }
-
     // 2. Convert snake_case to camelCase
     String snakeToCamel(String snakeCaseString) {
         StringBuilder camelCaseBuilder = new StringBuilder();
