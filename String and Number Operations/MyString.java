@@ -118,23 +118,25 @@ public int countUniquePalindromes(String inputString) {
     }
 
     // 6. Find length of longest substring without repeating characters
-    int longestUniqueSubstring(String inputString) {
-        int maxLength = 0;
-        int start = 0;
-        Set<Character> seenCharacters = new HashSet<>();
+int longestUniqueSubstring(String inputString) {
+    int maxLength = 0;
+    int start = 0;
+    int[] lastIndex = new int[256]; // stores last index of each character
+    Arrays.fill(lastIndex, -1);     // initialize all to -1
 
-        for (int end = 0; end < inputString.length(); end++) {
-            char currentChar = inputString.charAt(end);
+    for (int end = 0; end < inputString.length(); end++) {
+        char currentChar = inputString.charAt(end);
 
-            while (seenCharacters.contains(currentChar)) {
-                seenCharacters.remove(inputString.charAt(start));
-                start++;
-            }
-
-            seenCharacters.add(currentChar);
-            maxLength = Math.max(maxLength, end - start + 1);
+        // If character was seen inside current window, move start
+        if (lastIndex[currentChar] >= start) {
+            start = lastIndex[currentChar] + 1;
         }
 
-        return maxLength;
+        lastIndex[currentChar] = end; // update last index
+        maxLength = Math.max(maxLength, end - start + 1);
     }
+
+    return maxLength;
+}
+
 }
